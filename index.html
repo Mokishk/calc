@@ -199,6 +199,16 @@
         shouldReset = false;
         updateDisplay();
       }
+      function deleteLast() {
+        if (shouldReset) return;
+
+        currentNumber =
+          currentNumber.length > 1 ? currentNumber.slice(0, -1) : "0";
+
+        if (currentNumber === "-") currentNumber = "0";
+
+        updateDisplay();
+      }
     </script>
   </body>
 </html>
