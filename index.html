@@ -150,6 +150,66 @@
         operator = op;
         shouldReset = true;
       }
+
+      function calculate() {
+        if (operator === null || shouldReset) return;
+
+        const a = Number(previousNumber);
+        const b = Number(currentNumber);
+
+        let result;
+
+        switch (operator) {
+          case "+":
+            result = a + b;
+            break;
+
+          case "-":
+            result = a - b;
+            break;
+
+          case "*":
+            result = a * b;
+            break;
+
+          case "/":
+            if (b === 0) {
+              currentNumber = "Error";
+              operator = null;
+              shouldReset = true;
+              updateDisplay();
+              return;
+            }
+            result = a / b;
+            break;
+        }
+
+        currentNumber = String(Number(result.toPrecision(12)));
+        operator = null;
+        previousNumber = "";
+        shouldReset = true;
+
+        updateDisplay();
+      }
+
+      function clearDisplay() {
+        currentNumber = "0";
+        previousNumber = "";
+        operator = null;
+        shouldReset = false;
+        updateDisplay();
+      }
+
+      function deleteLast() {
+        if (shouldReset) return;
+
+        currentNumber =
+          currentNumber.length > 1 ? currentNumber.slice(0, -1) : "0";
+
+        if (currentNumber === "-") currentNumber = "0";
+
+        updateDisplay();
+      }
     </script>
   </body>
 </html>
